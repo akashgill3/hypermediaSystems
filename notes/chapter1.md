@@ -1,3 +1,4 @@
+# Chapter 1 - Hypermedia Reintroduction
 - **Hypermedia Overview:**
   - Universal technology akin to electricity.
   - Hypermedia-based systems are prevalent, utilizing HTML over HTTP in web browsers for various activities.
@@ -68,9 +69,9 @@
 
 - **Interactive User Experiences:** SPAs are lauded for offering highly interactive and immersive user experiences, with the ability to update elements on a page smoothly without full document reloads, use CSS transitions for visual effects, and respond to various user events.
 
-- **JavaScript Fatigue:** The passage touches on the challenges associated with SPAs, such as JavaScript fatigue due to the complex infrastructure required to manage them, constant changes in JSON APIs, and the overall complexity of modern web development.
+- **JavaScript Fatigue:** JavaScript fatigue due to the complex infrastructure required to manage them, constant changes in JSON APIs, and the overall complexity of modern web development.
 
-- **Exponential Complexity Growth:** It discusses how complexity in software tends to grow exponentially, making it challenging to maintain and manage large-scale SPAs over time.
+- **Exponential Complexity Growth:** Complexity in software tends to grow exponentially, making it challenging to maintain and manage large-scale SPAs over time.
 
 **Choosing Between Hypermedia and SPAs:**
 
@@ -78,7 +79,7 @@
 
 - **Consideration of Complexity Budget:** The concept of a "complexity budget" is introduced, highlighting the importance of managing complexity in software development and making informed decisions about when to adopt hypermedia-driven approaches or SPAs based on the application's needs.
 
-**HTML Notes: <div> Soup**
+**'<div> Soup'**
 
 - **Issues with Generic Elements:** The text discusses the common practice of using generic `<div>` and `<span>` elements instead of more meaningful tags, which can lead to "div soup" in HTML code. It highlights the drawbacks of such practices, including reduced accessibility and readability, as well as increased complexity in editing and debugging code.
 
@@ -87,4 +88,3 @@
 - **Improving Accessibility and Readability:** The passage suggests ways to improve the accessibility and readability of code, such as adding `role="button"` and `tabindex="0"` attributes to `<div>` elements used as buttons. It encourages developers to explore the HTML specification for appropriate tags and attributes to avoid "div soup" and ensure better code quality.
 
 - **Benefits of Using Designated Tags:** Using designated HTML elements not only improves accessibility and semantic structure but also makes the code easier to understand, edit, and maintain. It promotes using HTML elements appropriately to enhance the overall quality of web development projects.
-

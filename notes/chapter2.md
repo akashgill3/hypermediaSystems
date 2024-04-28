@@ -24,16 +24,12 @@
 
 - **HTTP Usage**: Facilitates transfer of hypermedia (HTML) between clients and servers, integral to web's distributed hypermedia system.
 - **HTTP Methods**: GET, POST, PUT, PATCH, DELETE; each method serves distinct purposes in resource retrieval, mutation, and deletion.
-- **HTTP Requests and Responses**: Detailed breakdown of HTTP requests (e.g., GET /book/contents/ HTTP/1.1) and responses (e.g., HTTP/1.1 200 OK), including headers and content.
+- **HTTP Requests and Responses**: Detailed breakdown of HTTP requests (e.g., `GET /book/contents/ HTTP/1.1`) and responses (e.g., `HTTP/1.1 200 OK`), including headers and content.
 
 **Hypermedia System Challenges and Workarounds:**
 
 - **HTTP Methods and Hypermedia Controls**: Limitations of native HTML controls (anchors, forms) to issue only GET and POST requests, necessitating JavaScript for PUT, PATCH, DELETE operations.
 - **HTML Limitations**: Shortcomings in HTML's hypermedia capabilities, prompting discussions on potential improvements and workarounds.
-
-**Future Considerations**:
-
-- **Chapter 4**: Teases upcoming discussion on strategies to address HTML's limitations in hypermedia-driven applications.
 
 **HTTP Response Codes and Caching:**
 
@@ -62,11 +58,11 @@
 - **Community Diversity**: Reflects the diverse community embracing hypermedia across languages like Ruby, Python, Lisp, Haskell, etc., fostering collaboration and support within the hypermedia architecture.
 - **Universal Web Language**: Hypermedia serves as a universal language for the web, enabling interoperability and shared techniques among developers using different technologies.
 
-Hypermedia Clients
+**Hypermedia Clients**
 
 Hypermedia clients, such as web browsers, are crucial components of a hypermedia system as they interpret hypermedia formats like HTML to allow users to interact with resources. While browsers are the most common hypermedia clients, other specialized clients like Hyperview for mobile exist.
 
-The Uniform Interface
+**The Uniform Interface**
 
 The Uniform Interface constraint in REST defines key principles:
 - **Identification of resources**: Each resource should have a unique identifier, typically represented by URLs.
@@ -74,21 +70,21 @@ The Uniform Interface constraint in REST defines key principles:
 - **Self-descriptive messages**: Messages exchanged between clients and servers should be self-descriptive, containing all necessary information within the response.
 - **Hypermedia as the engine of application state (HATEOAS)**: Hypermedia controls within responses guide clients on available actions, making the system flexible and self-describing.
 
-The HTML vs. JSON Example
+**The HTML vs. JSON Example**
 
 In a comparison between HTML and JSON representations:
 - HTML embeds hypermedia controls, making clients (like browsers) aware of available actions without external knowledge.
 - JSON requires clients to understand the domain model and available actions separately, leading to potential versioning and compatibility issues.
 
-HATEOAS and API Flexibility
+**HATEOAS and API Flexibility**
 
 HATEOAS enables API flexibility and reduces versioning complexities:
 - Hypermedia-driven APIs dynamically inform clients of available actions, eliminating the need for versioned APIs.
 - Changes to APIs reflect immediately in hypermedia responses, ensuring clients stay updated without manual intervention.
 
-Layered System and Code-On-Demand
+**Layered System and Code-On-Demand**
 
 REST's layered system allows intermediaries like CDNs to improve performance, while Code-On-Demand is an optional constraint allowing client functionality extension through scripts or applets.
 
-Conclusion:
-Understanding REST's principles like the Uniform Interface and HATEOAS is essential for designing flexible and scalable hypermedia systems. Despite challenges like session management and JSON APIs' limitations, embracing hypermedia's self-descriptive nature can lead to more robust and adaptable applications. 
+**Conclusion**
+Understanding REST's principles like the Uniform Interface and HATEOAS is essential for designing flexible and scalable hypermedia systems. Despite challenges like session management and JSON APIs' limitations, embracing hypermedia's self-descriptive nature can lead to more robust and adaptable applications.
