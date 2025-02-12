@@ -1,0 +1,75 @@
+<script>
+    (function setupHtmxAlpineIntegration() {
+        console.log('Setting up HTMX-Alpine integration');
+
+        document.addEventListener('htmx:afterSwap', (evt) => {
+            console.log('HTMX afterSwap triggered', evt.detail.target);
+            
+            const target = evt.detail.target;
+            
+            setTimeout(() => {
+                // Remove x-cloak to prevent flash
+                target.querySelectorAll('[x-cloak]').forEach(el => {
+                    el.style.display = 'none';
+                });
+
+                const processAlpineElements = (element) => {
+                    // First, get all parent Alpine components up to the root
+                    let parentElements = [];
+                    let currentElement = element.parentElement;
+                    while (currentElement) {
+                        if (currentElement.hasAttribute('x-data')) {
+                            parentElements.push(currentElement);
+                        }
+                        currentElement = currentElement.parentElement;
+                    }
+
+                    // Initialize parents first (if not already initialized)
+                    parentElements.reverse().forEach(el => {
+                        if (!el._x_dataStack && window.Alpine) {
+                            console.log('Initializing parent Alpine component:', el);
+                            Alpine.initTree(el);
+                        }
+                    });
+
+                    // Then get all Alpine elements in the swapped content
+                    const alpineElements = element.querySelectorAll('[x-data]');
+                    console.log('Found Alpine elements:', alpineElements.length);
+
+                    alpineElements.forEach(el => {
+                        if (!el._x_dataStack && window.Alpine) {
+                            console.log('Initializing Alpine on element:', el);
+                            Alpine.initTree(el);
+                        }
+                    });
+
+                    // Finally, initialize the target element itself if it has x-data
+                    if (element.hasAttribute('x-data') && !element._x_dataStack && window.Alpine) {
+                        console.log('Initializing Alpine on target element:', element);
+                        Alpine.initTree(element);
+                    }
+                };
+
+                processAlpineElements(target);
+            }, 0);
+        });
+
+        document.addEventListener('htmx:beforeSwap', (evt) => {
+            console.log('HTMX beforeSwap triggered', evt.detail.target);
+            
+            const target = evt.detail.target;
+            
+            if (target._x_dataStack && window.Alpine) {
+                console.log('Cleaning up Alpine instance on:', target);
+                Alpine.cleanup(target);
+            }
+        });
+
+        console.log('HTMX-Alpine integration setup complete');
+    })();
+
+    // Optional: Debug Alpine initialization
+    document.addEventListener('alpine:initialized', (evt) => {
+        console.log('Alpine initialized on:', evt.target);
+    });
+</script> 

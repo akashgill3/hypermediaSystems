@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form
+    hx-post="/create"
+    hx-trigger="submit"
+    x-data="{
+        username: '',
+        usernameInDB: '',
+        setValidity(input, message) {
+            input.setCustomValidity(message);
+        },
+        clearValidity(input) {
+            input.setCustomValidity('');
+        }
+    }"
+    x-effect="usernameInDB=username + 'db-user'"
+    >
+        <div class="relative">
+            <label for="username">Username</label>
+            <input 
+                type="text" 
+                id="username" 
+                name="username"
+                required
+                minlength="3"
+                class="peer"
+                hx-post="/validate/username"
+                hx-trigger="change"
+                hx-target="next .validation-message"
+                hx-indicator="next .checking-indicator"
+                @input="clearValidity($el)"
+                x-model="username"
+            />
+            
+            <!-- Loading indicator -->
+            <div class="checking-indicator htmx-indicator">
+                Checking availability...
+            </div>
+            
+            <!-- Validation message -->
+            <div class="validation-message"></div>
+        </div>
+
+        <label for="email">Email</label>
+        <input 
+            type="email" 
+            id="email" 
+            name="email"
+            required
+        />
+        
+        <label for="password">Password</label>
+        <input 
+            type="password" 
+            id="password" 
+            name="password"
+            required
+            minlength="8"
+        />
+        <label for="tags">Tags</label>
+        <input 
+            type="text" 
+            id="tags" 
+            name="tags"
+        />
+
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+<div th:fragment="validation"></div>
+    <div 
+        th:if="${isAvailable}" 
+        class="text-green-500"
+        x-init="setValidity($root.querySelector('#username'), '')"
+    >
+        Username is available
+    </div>
+    <div 
+        th:if="${!isAvailable}" 
+        class="text-red-500"
+        x-init="setValidity($root.querySelector('#username'), 'This username is already taken')"
+    >
+        Username is already taken
+    </div>
+</div>

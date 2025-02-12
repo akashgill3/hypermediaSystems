@@ -1,0 +1,72 @@
+<div 
+    x-data="{ 
+        tags: [],
+        addTag(tag) {
+            if (!this.tags.includes(tag)) {
+                this.tags.push(tag);
+            }
+        },
+        removeTag(tag) {
+            this.tags = this.tags.filter(t => t !== tag);
+        }
+    }"
+>
+    <label for="tags">Tags</label>
+    <div class="relative">
+        <input 
+            type="text" 
+            id="tags" 
+            name="tag-search"
+            hx-get="/taglist"
+            hx-trigger="keyup changed delay:500ms"
+            hx-target="#tag-results"
+            class="w-full border rounded-lg p-2"
+            placeholder="Search tags..."
+        />
+        
+        <!-- Tag search results -->
+        <div 
+            id="tag-results" 
+            class="absolute z-10 w-full mt-1 bg-white shadow-lg rounded-md border border-gray-200 max-h-60 overflow-y-auto"
+        ></div>
+    </div>
+
+    <!-- Selected tags -->
+    <div id="tagspan" class="mt-2 flex flex-wrap gap-2">
+        <template x-for="tag in tags" :key="tag">
+            <div class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full flex items-center gap-2">
+                <span x-text="tag"></span>
+                <button 
+                    type="button"
+                    @click="removeTag(tag)"
+                    class="text-blue-600 hover:text-blue-800"
+                >
+                    ×
+                </button>
+                <!-- Use array notation in name attribute -->
+                <input type="hidden" name="tags[]" :value="tag">
+            </div>
+        </template>
+    </div>
+</div>
+<!-- Add this hidden input to ensure Spring sees it as a collection -->
+<input 
+    type="hidden" 
+    name="tags" 
+    th:if="${#lists.isEmpty(tags)}"
+>
+
+<template x-for="tag in tags" :key="tag">
+    <div class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full flex items-center gap-2">
+        <span x-text="tag"></span>
+        <button 
+            type="button"
+            @click="removeTag(tag)"
+            class="text-blue-600 hover:text-blue-800"
+        >
+            ×
+        </button>
+        <!-- Use simple name without array notation -->
+        <input type="hidden" name="tags" :value="tag">
+    </div>
+</template>

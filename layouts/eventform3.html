@@ -1,0 +1,96 @@
+<form
+    hx-post="/create"
+    hx-trigger="submit"
+    x-data="{
+        setValidity(input, message) {
+            this.$refs[input].setCustomValidity(message);
+        },
+        clearValidity(input) {
+            this.$refs[input].setCustomValidity('');
+        }
+    }"
+>
+    <!-- Username field -->
+    <div class="relative">
+        <label for="username">Username</label>
+        <input 
+            type="text" 
+            id="username" 
+            name="username"
+            x-ref="username"
+            required
+            minlength="3"
+            class="peer"
+            hx-post="/validate/username"
+            hx-trigger="change"
+            hx-target="next .validation-message"
+            hx-indicator="next .checking-indicator"
+            @input="clearValidity('username')"
+        />
+        <div class="checking-indicator htmx-indicator">
+            Checking availability...
+        </div>
+        <div class="validation-message"></div>
+    </div>
+
+    <!-- Email field -->
+    <div class="relative">
+        <label for="email">Email</label>
+        <input 
+            type="email" 
+            id="email" 
+            name="email"
+            x-ref="email"
+            required
+            hx-post="/validate/email"
+            hx-trigger="change"
+            hx-target="next .validation-message"
+            hx-indicator="next .checking-indicator"
+            @input="clearValidity('email')"
+        />
+        <div class="checking-indicator htmx-indicator">
+            Checking email...
+        </div>
+        <div class="validation-message"></div>
+    </div>
+    
+    <!-- Password field with confirmation -->
+    <div class="relative">
+        <label for="password">Password</label>
+        <input 
+            type="password" 
+            id="password" 
+            name="password"
+            x-ref="password"
+            required
+            minlength="8"
+            hx-post="/validate/password"
+            hx-trigger="change"
+            hx-target="next .validation-message"
+            hx-indicator="next .checking-indicator"
+            @input="clearValidity('password')"
+        />
+        <div class="checking-indicator htmx-indicator">
+            Checking password strength...
+        </div>
+        <div class="validation-message"></div>
+    </div>
+    
+    <button type="submit">Submit</button>
+</form>
+<div th:fragment="validation"></div>
+    <div 
+        th:if="${isAvailable}" 
+        class="text-green-500"
+        x-init="setValidity('username', '')"
+    >
+        Username is available
+    </div>
+    <div 
+        th:if="${!isAvailable}" 
+        class="text-red-500"
+        x-init="setValidity('username', 'This username is already taken')"
+    >
+        Username is already taken
+    </div>
+</div>
